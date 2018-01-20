@@ -603,7 +603,7 @@ Fig 2: Residual plot for VECM model <span class="math inline">\(\hspace{8 cm}\)<
 </div>
 <div id="part-2-projecting-future-hsfo-price-using-eias-projection-of-brent-crude-oil-price" class="section level3">
 <h3>Part 2: Projecting future HSFO price using EIA’s projection of Brent crude oil price</h3>
-<p>Now that most of the statistical heavy-lifting has been done, all that remains is the relatively simple task of applying the estimated model from Table 3 to the EIAâs projection of Brent crude oil price. The projection that we obtained from the EIA website<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a> contained annual figures from 2017 to 2050. Table 4 below shows a subset of this projection.</p>
+<p>Now that most of the statistical heavy-lifting has been done, all that remains is the relatively simple task of applying the estimated model from Table 3 to the EIA’s projection of Brent crude oil price. The projection that we obtained from the EIA website<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a> contained annual figures from 2017 to 2050. Table 4 below shows a subset of this projection.</p>
 <pre class="r"><code># read in EIA's projection of future Brent prices
 brent_data &lt;- read.csv(&quot;brent_projection.csv&quot;, header = TRUE, sep = &quot;,&quot;)
 
@@ -726,7 +726,7 @@ proj$date &lt;- dmy(c(rep(NA, 3), &quot;1-Oct-17&quot;, &quot;1-Nov-17&quot;, &q
                t(sapply(c(&quot;1-Jan-&quot;, &quot;1-Feb-&quot;, &quot;1-Mar-&quot;, &quot;1-Apr-&quot;, &quot;1-May-&quot;, &quot;1-Jun-&quot;, 
                         &quot;1-Jul-&quot;, &quot;1-Aug-&quot;, &quot;1-Sep-&quot;, &quot;1-Oct-&quot;, &quot;1-Nov-&quot;, &quot;1-Dec-&quot;), 
                       function(month) paste0(month, 18:50)))))</code></pre>
-<p>Figure 4 below shows the projection of future HSFO prices based on EIAâs projection of Brent crude oil prices, using the VECM model developed in Part 1.<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a> The projected HSFO prices essentially mimic the smooth increase seen in the projected Brent prices. If Brent prices were to plateau beyond 2050, then, based on the VECM, HSFO prices would plateau shortly after to restore the long-run equilibrium specified by <span class="math inline">\(eq.2\)</span>. Finally, it is worth noting that notwithstanding the rigorous statistical procedures followed in Part 1, our projection for HSFO prices shown here is only as reliable as EIAâs projection for Brent prices, which we took as given.</p>
+<p>Figure 4 below shows the projection of future HSFO prices based on EIA’s projection of Brent crude oil prices, using the VECM model developed in Part 1.<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a> The projected HSFO prices essentially mimic the smooth increase seen in the projected Brent prices. If Brent prices were to plateau beyond 2050, then, based on the VECM, HSFO prices would plateau shortly after to restore the long-run equilibrium specified by <span class="math inline">\(eq.2\)</span>. Finally, it is worth noting that notwithstanding the rigorous statistical procedures followed in Part 1, our projection for HSFO prices shown here is only as reliable as EIA’s projection for Brent prices, which we took as given.</p>
 <pre class="r"><code># filter the first observation in every month of the historical data
 proj_df &lt;- price_data %&gt;% separate(date, into = c(&quot;day&quot;, &quot;month_year&quot;), 
                                 sep = &quot;(?&lt;=[0-9])-&quot;, remove = FALSE) %&gt;%
@@ -776,7 +776,7 @@ Fig.4 Projection of HSFO prices based on EIA’s projection of Brent prices
 </div>
 <div id="appendix-inspecting-model-fit-and-back-testing-results" class="section level3">
 <h3>Appendix: Inspecting model fit and back-testing results</h3>
-<p>In this appendix, we briefly assess the VECMâs fit to the historical data, and its ability to predict the historical data. To do this, we perform back-testing by splitting the historical data roughly 50-50 into a training and test set. We then fit the same VECM (<span class="math inline">\(eq.4\)</span>) to the training set and use this estimated model to predict HSFO prices for the test set. Figure 5 below shows the fitted and predicted HSFO prices. We see that</p>
+<p>In this appendix, we briefly assess the VECM’s fit to the historical data, and its ability to predict the historical data. To do this, we perform back-testing by splitting the historical data roughly 50-50 into a training and test set. We then fit the same VECM (<span class="math inline">\(eq.4\)</span>) to the training set and use this estimated model to predict HSFO prices for the test set. Figure 5 below shows the fitted and predicted HSFO prices. We see that</p>
 <ol style="list-style-type: lower-roman">
 <li>the fitted values mimic the observed HSFO prices almost perfectly, and</li>
 <li>the predicted values are able to capture the general movement of the observed HSFO prices.</li>
@@ -858,7 +858,7 @@ Fig.5 Model fit and back-testing result on historical data (1 Nov 2011 - 19 Sep 
 <li id="fn8"><p>We do not report the other typical regression output such as standard errors, p-values and adjusted <span class="math inline">\(R^2\)</span> because, although the OLS estimator <span class="math inline">\(\hat{\beta}\)</span> is super-consistent, its distribution is not asymptotically normal (due to potentially correlated error terms), and so the usual inferential procedures do not apply here.<a href="#fnref8">↩</a></p></li>
 <li id="fn9"><p>A more serious problem would be the complete unreliability of any tests for significance due to the serially-correlated residuals.<a href="#fnref9">↩</a></p></li>
 <li id="fn10"><p>Linear combinations of stationary time series variables are also stationary.<a href="#fnref10">↩</a></p></li>
-<li id="fn11"><p>We add the constant term to achieve a more âstableâ regression i.e. lower standard errors for the coefficient estimates. However, in practice, the constant term is usually statistically insignificant and/or close to zero in magnitude.<a href="#fnref11">↩</a></p></li>
+<li id="fn11"><p>We add the constant term to achieve a more “stable” regression i.e. lower standard errors for the coefficient estimates. However, in practice, the constant term is usually statistically insignificant and/or close to zero in magnitude.<a href="#fnref11">↩</a></p></li>
 <li id="fn12"><p>VECMs are generally not known for coefficient estimates that are easy to interpret. The strength of a VECM, after all, lies in its ability to capture long-run dynamics.<a href="#fnref12">↩</a></p></li>
 <li id="fn13"><p>U.S. Energy Information Administration, <a href="https://www.eia.gov" class="uri">https://www.eia.gov</a>, last accessed on 21 Sep 2017.<a href="#fnref13">↩</a></p></li>
 <li id="fn14"><p>We avoid calling this a <em>forecast</em> of HSFO prices, because <em>forecast</em> implies the estimation of prediction intervals, which we are unable to do here.<a href="#fnref14">↩</a></p></li>
